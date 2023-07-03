@@ -1,0 +1,35 @@
+.place__trash {
+  margin: 0;
+  padding: 0;
+  width: 18px;
+  height: 19px;
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-image: url(../../../images/trash.svg);
+  object-fit: cover;
+  border: none;
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, .0);
+  background-position: center;
+  background-size: cover;
+  transition: 0.3s linear;
+  cursor: pointer;
+  visibility: visible;
+}
+
+@media (any-hover: hover) {
+  .place__trash:hover {
+    opacity: 60%;
+    transform: scale(1.05);
+  }
+}
+
+.place__trash:active {
+  transform: scale(.9);
+}
+
+.place__trash.place__trash_none {
+  visibility: hidden;
+}
+

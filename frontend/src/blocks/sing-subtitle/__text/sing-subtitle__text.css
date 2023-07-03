@@ -1,0 +1,15 @@
+.sing-subtitle__text {
+  margin: 0;
+  margin-right: 10px;
+  padding: 0;
+  text-align: center;
+  margin-top: 0px;
+  margin-bottom: 10px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 17px;
+
+  color: #fff;
+}

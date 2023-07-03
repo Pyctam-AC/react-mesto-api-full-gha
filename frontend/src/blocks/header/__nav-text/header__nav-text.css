@@ -1,0 +1,22 @@
+.header__nav-text{
+  margin: 0;
+  margin-top: 15px;
+  margin-right: 24px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+
+  color: #FFFFFF;
+}
+
+@media screen and (max-width: 890px) {
+  .header__nav-text {
+    font-size: 18px;
+    line-height: 20px;
+    margin-bottom: 18px;
+    margin-right: 0;
+  }
+}

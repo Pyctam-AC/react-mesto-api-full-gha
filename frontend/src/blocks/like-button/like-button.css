@@ -1,0 +1,20 @@
+.like-button {
+  margin: 0;
+  padding: 0;
+  margin-bottom: 3px;
+  width: 34px;
+  height: 19px;
+  background-image: url(../../images/like_icon.svg);
+  background-color: inherit;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-sizing: border-box;
+  border: none;
+  cursor: pointer;
+}
+
+@media (any-hover: hover) {
+  .like-button:hover {
+    opacity: 50%;
+  }
+}

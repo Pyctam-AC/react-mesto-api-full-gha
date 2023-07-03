@@ -1,0 +1,32 @@
+.header__nav-link{
+  margin: 0;
+  margin-top: 15px;
+  font-family: 'Inter', Arial, Helvetica, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  text-decoration: none;
+  text-align: right;
+  cursor: pointer;
+  transition: .3s linear;
+  color: #A9A9A9;
+}
+
+.header__nav-link:hover {
+  color: #FFF;
+}
+
+.header__nav-link:active {
+  scale: .98;
+}
+
+@media screen and (max-width: 890px) {
+  .header__nav-link {
+    font-size: 18px;
+    line-height: 20px;
+  }
+
+
+
+}

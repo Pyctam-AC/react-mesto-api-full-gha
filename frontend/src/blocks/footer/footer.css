@@ -1,0 +1,22 @@
+.footer {
+  margin-right: auto;
+  margin-left: auto;
+
+  margin-top: min(47px);
+  padding-bottom: 60px;
+  max-width: 880px;
+}
+
+@media screen and (max-width: 890px) {
+  .footer {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-top: min(29px);
+    padding-bottom: 34px;
+  }
+
+  .footer.footer__nav-bar {
+    transform: translateY(130px);
+    background-color: inherit;
+  }
+}

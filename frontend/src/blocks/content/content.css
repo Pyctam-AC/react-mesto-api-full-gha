@@ -1,0 +1,12 @@
+.content {
+  margin: 0 auto;
+  max-width: 880px;
+  min-height: 70vh;
+  transition: transform 0.2s linear;
+}
+
+@media screen and (max-width: 890px) {
+  .content.content__nav-bar {
+    transform: translateY(130px);
+  }
+}

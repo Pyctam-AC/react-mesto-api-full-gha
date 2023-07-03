@@ -1,0 +1,12 @@
+.place__img {
+  width: 282px;
+  min-height: 282px;
+  object-fit: cover;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+
+/*
+.place__img:hover {
+  background-color: rgba(0, 0, 0, 1);
+}*/

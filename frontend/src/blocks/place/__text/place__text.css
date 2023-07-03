@@ -1,0 +1,9 @@
+.place__text {
+  margin: 0;
+  margin-left: 8px;
+  width: 246px;
+  padding: 25px 0 31px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}

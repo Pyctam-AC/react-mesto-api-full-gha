@@ -1,0 +1,23 @@
+.page {
+  margin: 0 auto;
+  background-color: #000;
+  /* padding-bottom: 130px; */
+  /* max-width: 1280px; */
+  height: 100%;
+  box-sizing: border-box;
+  color: #FFF;
+  font-family: 'inter', Arial, Helvetica, sans-serif;
+  font-weight: normal;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  text-rendering: optimizeLegibility;
+}
+
+@media screen and (max-width: 890px) {
+  .page.page__nav-bar {
+    padding-bottom: 130px;
+  }
+}

@@ -1,0 +1,27 @@
+.popup__registr-icon {
+  margin: 0 auto;
+  margin-top: 60px;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: none;
+  transition: 0.3s linear;
+  cursor: pointer;
+}
+
+.popup__registr-icon_ok {
+  background-image: url(../../../images/ok_registration.svg);
+}
+
+.popup__registr-icon_er {
+  background-image: url(../../../images/error-registration.svg);
+}
+
+.popup__registr-icon:hover {
+  opacity: 60%;
+}
+
+
+.popup__registr-icon:active {
+  transform: scale(.9);
+}

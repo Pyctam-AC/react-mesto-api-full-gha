@@ -1,0 +1,9 @@
+.place__card {
+  margin: 0 auto;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  list-style: none;
+  /* justify-content: space-between; */
+  justify-content: flex-start;
+}
