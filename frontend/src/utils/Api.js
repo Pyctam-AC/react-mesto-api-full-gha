@@ -14,14 +14,16 @@ class Api {
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include'
     })
     .then(res => this._getResult (res))
   }
 
   getInfoProfile () {
     return fetch(`${this._url}/users/me`, {
-      headers: this._headers
+      headers: this._headers,
+      credentials: 'include'
     })
     .then(res => this._getResult (res))
   }
@@ -29,6 +31,7 @@ class Api {
   setInfoProfile (data) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -41,6 +44,7 @@ class Api {
   setNewCard (data) {
     return fetch(`${this._url}/cards`, {
       method: 'POST',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         name: data.name,
@@ -53,6 +57,7 @@ class Api {
   deleteCard (cardID) {
     return fetch(`${this._url}/cards/${cardID}`, {
       method: 'DELETE',
+      credentials: 'include',
       headers: this._headers,
     })
     .then(res => this._getResult (res))
@@ -61,6 +66,7 @@ class Api {
   setLikeCard (cardID, method) {
     return fetch(`${this._url}/cards/${cardID}/likes`, {
       method: `${method ? "PUT" : "DELETE"}`,
+      credentials: 'include',
       headers: this._headers,
     })
     .then(res => this._getResult (res))
@@ -79,7 +85,7 @@ class Api {
 }
 
 const api = new Api({
-  url: 'https://mesto.nomoreparties.co/v1/cohort-63',
+  url: 'http://localhost:4000',
   headers: {
     authorization: 'dcda7652-e6c3-4950-99a4-e4a7cc367bc0',
     'Content-Type': 'application/json'

@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React from 'react';
 import { useState, useEffect } from "react";
 import Main from "./Main";
@@ -49,8 +50,7 @@ function App() {
     .then((data) => {
       console.log(data)
       setLoggedIn(true);
-      navigate('/')
-      localStorage.setItem('token', data.token);
+      navigate('/');
       navBarVisible(false)
     })
     .catch(err => {
@@ -61,9 +61,8 @@ function App() {
 
 //аутентификация пользователя
 
-  const token = localStorage.getItem('token')
   const checkToken = () => {
-    auth.getContent(token)
+    auth.getContent()
     .then((res) => {
       if (res) {
       setLoggedIn(true)
@@ -83,7 +82,6 @@ function App() {
   }, []);
 
   const handleLogOut = () => {
-    localStorage.removeItem('token');
     navigate('/signin');
     navBarVisible(false)
   }
@@ -111,7 +109,7 @@ function App() {
 
 //лайки
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i._id === currentUser._id);
+    const isLiked = card.likes.some(i => i === currentUser._id);
     api.setLikeCard(card._id, !isLiked)
       .then((newCard) => {
         setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
