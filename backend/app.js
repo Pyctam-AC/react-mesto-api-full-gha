@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 require('dotenv').config();
 
 const express = require('express');
@@ -10,8 +11,8 @@ const routes = require('./routes/index');
 // const { PORT = 4000 } = process.env;
 /* http://localhost:4000 */
 
-// const port = process.env.PORT || 3000;
-const port = 4000;
+const port = process.env.PORT || 3000;
+// const port = 4000;
 
 const app = express();
 
@@ -20,7 +21,7 @@ mongoose
     useNewUrlParser: true,
   })
   .then(() => {
-  //  console.log('connect to db');
+    console.log('connect to db');
   });
 
 app.use(cors({
@@ -35,18 +36,10 @@ app.use(express.json());
 app.use(routes);
 
 app.listen(port, () => {
-//  console.log(`App listening on port ${port}`);
+  console.log(`App listening on port ${port}`);
 });
 
 /* const bodyParser = require('body-parser'); */
 // app.use(cookieParser());
-
-/* app.use((req, res, next) => {
-  req.user = {
-    _id: '6485da795fb7954ee511993a',
-  };
-
-  next();
-}); */
 
 /* console.log(mongoose.Error); */

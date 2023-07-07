@@ -8,6 +8,7 @@ const auth = require('../middlewares/auth');
 const NotFoundError = require('../errors/NotFoundError');
 const { requestLogger, errorLogger } = require('../middlewares/logger');
 const errorHandler = require('../middlewares/errorHandler');
+const { logOut } = require('../controllers/users');
 
 router.use(requestLogger); // подключаем логгер запросов
 
@@ -15,6 +16,17 @@ router.use('/', authRoutes);
 router.use(auth);
 router.use('/users', userRoutes);
 router.use('/cards', cardRoutes);
+
+router.use('/logout', logOut);
+
+/* router.use('/logout', (req, res, next) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: true,
+  })
+    .send();
+  next();
+}); */
 
 router.use('*', (req, res, next) => {
   next(new NotFoundError('Такая страница не найдена'));

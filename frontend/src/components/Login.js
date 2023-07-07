@@ -7,7 +7,7 @@ import Header from "./Header";
 function Login({ authData, loggedIn }) {
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({

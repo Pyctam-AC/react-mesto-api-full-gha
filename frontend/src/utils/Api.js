@@ -20,13 +20,13 @@ class Api {
     .then(res => this._getResult (res))
   }
 
-  getInfoProfile () {
+/*   getInfoProfile () {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
       credentials: 'include'
     })
     .then(res => this._getResult (res))
-  }
+  } */
 
   setInfoProfile (data) {
     return fetch(`${this._url}/users/me`, {
@@ -75,6 +75,7 @@ class Api {
   setNewAvatar (data) {
     return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
+      credentials: 'include',
       headers: this._headers,
       body: JSON.stringify({
         avatar: data.avatar

@@ -21,13 +21,22 @@ const login = (req, res, next) => {
       );
       res
         .cookie('jwt', token, {
-          maxAge: 3600000 * 24,
+          maxAge: 604800,
           httpOnly: true,
           sameSite: true,
         })
         .send({ token, user });
     })
     .catch(next);
+};
+
+const logOut = (req, res, next) => {
+  res.clearCookie('jwt', {
+    httpOnly: true,
+    sameSite: true,
+  })
+    .send({ message: 'Cookie удалена' });
+  next();
 };
 
 const getUsers = (req, res, next) => {
@@ -126,4 +135,5 @@ module.exports = {
   getDataUser,
   updateDataUser,
   updateAvatarUser,
+  logOut,
 };

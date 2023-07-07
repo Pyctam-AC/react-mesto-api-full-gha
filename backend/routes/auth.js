@@ -4,6 +4,7 @@ const { celebrate, Joi } = require('celebrate');
 const {
   login,
   createUser,
+//  logOut,
 } = require('../controllers/users');
 
 router.post(
@@ -32,5 +33,7 @@ router.post(
   }),
   createUser,
 );
+
+// router.get('/logout', logOut);
 
 module.exports = router;

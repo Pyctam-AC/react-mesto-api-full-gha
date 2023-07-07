@@ -1,144 +1,173 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React from 'react';
+import React from "react";
 import { useState, useEffect } from "react";
 import Main from "./Main";
 import Footer from "./Footer";
-import ImagePopup from './ImagePopup';
-import api from '../utils/Api';
-import {CurrentUserContext} from '../contexts/CurrentUserContext';
-import {CardsContext} from '../contexts/CardsContext';
-import EditProfilePopup from './EditProfilePopup';
-import EditAvatarPopup from './EditAvatarPopup'
-import AddPlacePopup from './AddPlacePopup';
-import DeleteCardPopup from './DeleteCardPopup';
-import { Route, Routes, useNavigate } from 'react-router-dom';
-import Login from './Login';
-import Register from './Register';
-import ProtectedRoute from './ProtectedRoute';
-import * as auth from '../utils/auth';
-import RegisterOkPopup from './RegisterOkPopup';
-import ErrorPopup from './ErrorPopup';
-import Spinner from './Spinner';
-import usePopupClose from '../hooks/usePopupClose';
+import ImagePopup from "./ImagePopup";
+import api from "../utils/Api";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { CardsContext } from "../contexts/CardsContext";
+import EditProfilePopup from "./EditProfilePopup";
+import EditAvatarPopup from "./EditAvatarPopup";
+import AddPlacePopup from "./AddPlacePopup";
+import DeleteCardPopup from "./DeleteCardPopup";
+import { Route, Routes, useNavigate } from "react-router-dom";
+import Login from "./Login";
+import Register from "./Register";
+import ProtectedRoute from "./ProtectedRoute";
+import * as auth from "../utils/auth";
+import RegisterOkPopup from "./RegisterOkPopup";
+import ErrorPopup from "./ErrorPopup";
+import Spinner from "./Spinner";
+import usePopupClose from "../hooks/usePopupClose";
 
 function App() {
-
-//регистрация пользователя
+  //регистрация пользователя
 
   const navigate = useNavigate();
 
   const registrationUser = (data) => {
-    auth.register(data)
-    .then(() => {
-      registrOkPopupVisible(true);
-    })
-    .catch((err) => {
-      console.log(err)
-      ErrorPopupVisible(true);
-    })
-  }
+    auth
+      .register(data)
+      .then(() => {
+        registrOkPopupVisible(true);
+      })
+      .catch((err) => {
+        console.log(err);
+        ErrorPopupVisible(true);
+      });
+  };
 
-//авторизация пользователя
+  //авторизация пользователя
 
   const [emailUser, setUserData] = useState(null);
 
   const [loggedIn, setLoggedIn] = useState(null);
 
+  const [currentUser, setUserInfo] = useState(null);
+
   const authorizationUser = (data) => {
-    setUserData(data.email)
-    auth.autorize(data)
-    .then((data) => {
-      console.log(data)
-      setLoggedIn(true);
-      navigate('/');
-      navBarVisible(false)
-    })
-    .catch(err => {
-      console.log(err);
-      ErrorPopupVisible(true);
-    });
+    setUserData(data.email);
+    auth
+      .autorize(data)
+      .then((data) => {
+        console.log(data);
+        setLoggedIn(true);
+        navigate("/");
+//        setUserInfo(data.user);
+        checkToken()
+        navBarVisible(false);
+      })
+      .catch((err) => {
+        console.log(err);
+        ErrorPopupVisible(true);
+      });
   };
 
-//аутентификация пользователя
+  //аутентификация пользователя
+
+
 
   const checkToken = () => {
-    auth.getContent()
-    .then((res) => {
-      if (res) {
-      setLoggedIn(true)
-      setUserData(res.data.email)
-      navigate('/')
-      } else {
-      setLoggedIn(false);
-      }
-    })
-    .catch(() => {
-      setLoggedIn(false);
-    })
-  }
+    auth
+      .getContent()
+      .then((res) => {
+        if (res) {
+          setLoggedIn(true);
+          setUserData(res.email);
+          setUserInfo(res);
+          navigate("/");
+         } else {
+          setLoggedIn(false);
+        }
+      })
+      .catch(() => {
+        setLoggedIn(false);
+      });
+  };
 
   useEffect(() => {
     checkToken();
   }, []);
 
+// выход из учётной записи
+
   const handleLogOut = () => {
-    navigate('/signin');
-    navBarVisible(false)
-  }
-
-//эффект загрузки
-  const [isLoading, setIsLoading] = useState(false);
-
-//загрузка данных пользователя и карточек
-
-  const [currentUser, setUserInfo] = useState(null);
-  const [cards, setCards] = useState([]);
-
-  useEffect(() => {
-    setIsLoading(true)
-    Promise.all([api.getInfoProfile(), api.getInitialCards()])
-      .then(([userInfo, cards]) => {
-        setUserInfo(userInfo);
-        setCards(cards);
-      })
+    auth
+      .logOut()
+      .then()
       .catch((err) => {
         console.log(err);
       })
-      .finally(() => setIsLoading(false))
-  }, []);
+      .finally(() => {
+        navigate('/signin');
+        navBarVisible(false);
+        setLoggedIn(false);
+      });
+  };
 
-//лайки
+  //эффект загрузки
+  const [isLoading, setIsLoading] = useState(false);
+
+  //загрузка данных пользователя и карточек
+
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    if (loggedIn) {
+      setIsLoading(true);
+      /* Promise.all([api.getInfoProfile(), api.getInitialCards()])
+        .then(([userInfo, cards]) => {
+          setUserInfo(userInfo);
+          setCards(cards);
+        }) */
+      api.getInitialCards()
+        .then((cards) => {
+          setCards(cards.reverse())})
+        .catch((err) => {
+          console.log(err);
+        })
+        .finally(() => setIsLoading(false));
+    };
+  }, [loggedIn]);
+
+  //лайки
   const handleCardLike = (card) => {
-    const isLiked = card.likes.some(i => i === currentUser._id);
-    api.setLikeCard(card._id, !isLiked)
+    const isLiked = card.likes.some((i) => i === currentUser._id);
+    api
+      .setLikeCard(card._id, !isLiked)
       .then((newCard) => {
-        setCards((state) => state.map((c) => c._id === card._id ? newCard : c));
+        setCards((state) =>
+          state.map((c) => (c._id === card._id ? newCard : c))
+        );
       })
       .catch((err) => {
         console.log(err);
       });
-  }
+  };
 
-//удаление карточки
+  //удаление карточки
   const handleCardDelete = (card) => {
-    setIsLoading(true)
-    api.deleteCard (card._id)
+    setIsLoading(true);
+    api
+      .deleteCard(card._id)
       .then(() => {
-        setCards((state) => state.filter((c) => c._id !== card._id))
+        setCards((state) => state.filter((c) => c._id !== card._id));
       })
       .then(() => {
         closeAllPopups();
       })
       .catch((err) => {
-        console.log(err)
+        console.log(err);
       })
-      .finally(() => setIsLoading(false))
-  }
+      .finally(() => setIsLoading(false));
+  };
 
-//изменение данных пользователя
+  //изменение данных пользователя
   const handleUpdateUser = (dataUser) => {
-    setIsLoading(true)
-    api.setInfoProfile(dataUser)
+    setIsLoading(true);
+    api
+      .setInfoProfile(dataUser)
       .then((data) => {
         setUserInfo(data);
       })
@@ -146,31 +175,33 @@ function App() {
         closeAllPopups();
       })
       .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false))
+      .finally(() => setIsLoading(false));
   };
 
-//изменение аватара пользователя
+  //изменение аватара пользователя
   const handleUpdateAvatar = (avatar) => {
-    setIsLoading(true)
-    api.setNewAvatar(avatar)
+    setIsLoading(true);
+    api
+      .setNewAvatar(avatar)
       .then((data) => {
         setUserInfo(data);
       })
       .then(() => {
-        closeAllPopups()
+        closeAllPopups();
       })
       .catch((err) => {
         console.log(err);
       })
       .finally(() => {
-        setIsLoading(false)
-      })
-  }
+        setIsLoading(false);
+      });
+  };
 
-//добавление новой карточки
+  //добавление новой карточки
   const handleAddPlaceSubmit = (dataNewPlace) => {
-    setIsLoading(true)
-    api.setNewCard(dataNewPlace)
+    setIsLoading(true);
+    api
+      .setNewCard(dataNewPlace)
       .then((newCard) => {
         setCards([newCard, ...cards]);
       })
@@ -182,10 +213,10 @@ function App() {
       })
       .finally(() => {
         setIsLoading(false);
-      })
-  }
+      });
+  };
 
-//логика попапов
+  //логика попапов
   const [isNewCardPopupVisible, setNewCardPopupVisible] = useState(false);
   const [isPhotoCardPopupVisible, setPhotoCardPopupVisible] = useState(false);
   const [isProfilePopupVisible, setProfilePopupVisible] = useState(false);
@@ -200,39 +231,39 @@ function App() {
 
   const handleOpenNewPlacePopup = () => {
     setNewCardPopupVisible(true);
-    navBarVisible(false)
+    navBarVisible(false);
   };
 
   const handleOpenEditProfilePopup = () => {
     setProfilePopupVisible(true);
-    navBarVisible(false)
+    navBarVisible(false);
   };
 
   const handleOpenNewAvatarPopup = () => {
     setAvatarPopupVisible(true);
-    navBarVisible(false)
+    navBarVisible(false);
   };
 
   const handleOpenPopupImage = (card) => {
     setPhotoCardPopupVisible(true);
     setCardPopup(card);
-    navBarVisible(false)
+    navBarVisible(false);
   };
 
   const handleOpenPopupDeleteCard = (card) => {
     deleteCardPopupVisible(true);
     deletePopup(card);
-    navBarVisible(false)
+    navBarVisible(false);
   };
 
   const closeRegistrOkPopup = () => {
-    closeAllPopups()
-    navigate('/signin')
-  }
+    closeAllPopups();
+    navigate("/signin");
+  };
 
   const handlOpenNav = () => {
-    navBarVisible(!isNavBarVisible)
-  }
+    navBarVisible(!isNavBarVisible);
+  };
 
   const closeAllPopups = () => {
     setProfilePopupVisible(false);
@@ -242,18 +273,19 @@ function App() {
     deleteCardPopupVisible(false);
     ErrorPopupVisible(false);
     registrOkPopupVisible(false);
-  }
+  };
 
   usePopupClose(
     isNewCardPopupVisible ||
-    isPhotoCardPopupVisible ||
-    isProfilePopupVisible ||
-    isAvatarPopupVisible ||
-    isDeleteCardPopupVisible ||
-    isRegistrOkPopupVisible ||
-    isErrorPopupVisible,
+      isPhotoCardPopupVisible ||
+      isProfilePopupVisible ||
+      isAvatarPopupVisible ||
+      isDeleteCardPopupVisible ||
+      isRegistrOkPopupVisible ||
+      isErrorPopupVisible,
     "popup_opened",
-    closeAllPopups)
+    closeAllPopups
+  );
 
   if (loggedIn === null) {
     return (
@@ -261,14 +293,11 @@ function App() {
         <Spinner />
         <Footer />
       </div>
-    )
+    );
   }
 
   return (
-    <div className={`page ${
-      isNavBarVisible ? "page__nav-bar" : ""
-    }`}
-    >
+    <div className={`page ${isNavBarVisible ? "page__nav-bar" : ""}`}>
       <CurrentUserContext.Provider value={currentUser}>
         <CardsContext.Provider value={cards}>
           <Routes>
@@ -292,9 +321,7 @@ function App() {
               path="/signin"
               element={
                 <>
-                  <Login
-                    authData={(data) => authorizationUser(data)}
-                  />
+                  <Login authData={(data) => authorizationUser(data)} />
                   <ErrorPopup
                     isOpen={isErrorPopupVisible}
                     onClose={closeAllPopups}
@@ -362,9 +389,7 @@ function App() {
           </Routes>
         </CardsContext.Provider>
       </CurrentUserContext.Provider>
-      <Footer
-        isOpen={isNavBarVisible}
-      />
+      <Footer isOpen={isNavBarVisible} />
     </div>
   );
 }
