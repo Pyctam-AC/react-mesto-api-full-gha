@@ -1,5 +1,5 @@
 // export const BASE_URL = 'http://localhost:4000';
-export const BASE_URL = 'http://sultangaliev.nomoredomains.work';
+export const BASE_URL = 'https://sultangaliev.nomoredomains.work';
 
 const getResult = (res) => {
   if (res.ok) {

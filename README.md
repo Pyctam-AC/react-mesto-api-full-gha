@@ -11,7 +11,7 @@ React.
 
 ## Ссылки на проект
 
-IP-адрес 158.160.48.168
+IP 158.160.48.168
 
 Frontend https://mesto-ru.nomoredomains.work
 

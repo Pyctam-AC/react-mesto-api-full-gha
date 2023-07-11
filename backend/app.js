@@ -26,7 +26,7 @@ mongoose
 
 app.use(cors({
 //  origin: 'http://localhost:3000',
-  origin: 'http://mesto-ru.nomoredomains.work',
+  origin: 'https://mesto-ru.nomoredomains.work',
   credentials: true,
 }));
 
