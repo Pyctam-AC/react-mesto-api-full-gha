@@ -13,6 +13,6 @@ React.
 
 IP 158.160.48.168
 
-Frontend http://mesto-ru.nomoredomains.work
+Frontend https://mesto-ru.nomoredomains.work
 
-Backend http://sultangaliev.nomoredomains.work
+Backend https//sultangaliev.nomoredomains.work

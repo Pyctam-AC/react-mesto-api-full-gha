@@ -5,6 +5,8 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cookieParser = require('cookie-parser');
 const cors = require('cors');
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
 
 const routes = require('./routes/index');
 
@@ -15,6 +17,17 @@ const port = process.env.PORT || 3000;
 // const port = 4000;
 
 const app = express();
+
+app.use(helmet());
+
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 50,
+  standardHeaders: true,
+  legacyHeaders: false,
+});
+
+app.use(limiter);
 
 mongoose
   .connect('mongodb://0.0.0.0/mestodb', {

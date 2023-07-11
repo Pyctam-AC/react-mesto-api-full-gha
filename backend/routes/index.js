@@ -12,6 +12,12 @@ const { logOut } = require('../controllers/users');
 
 router.use(requestLogger); // подключаем логгер запросов
 
+router.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 router.use('/', authRoutes);
 router.use(auth);
 router.use('/users', userRoutes);
