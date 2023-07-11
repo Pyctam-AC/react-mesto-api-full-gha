@@ -86,7 +86,8 @@ class Api {
 }
 
 const api = new Api({
-  url: 'http://localhost:4000',
+//  url: 'http://localhost:4000',
+  url: 'http://sultangaliev.nomoredomains.work',
   headers: {
     authorization: 'dcda7652-e6c3-4950-99a4-e4a7cc367bc0',
     'Content-Type': 'application/json'
