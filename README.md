@@ -15,4 +15,4 @@ IP 158.160.48.168
 
 Frontend https://mesto-ru.nomoredomains.work
 
-Backend https//sultangaliev.nomoredomains.work
+Backend https://sultangaliev.nomoredomains.work
