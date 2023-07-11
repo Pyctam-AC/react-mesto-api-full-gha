@@ -7,12 +7,12 @@ React.
 
 Пожалуйста, прикрепите в это описание ссылку на сайт, размещенный на Яндекс.Облаке.
 
-Адрес репозитория: https://github.com/...
+Адрес репозитория: https://github.com/Pyctam-AC/react-mesto-api-full-gha.git
 
 ## Ссылки на проект
 
 IP 158.160.48.168
 
-Frontend https://mesto-ru.nomoredomains.work
+Frontend http://mesto-ru.nomoredomains.work
 
-Backend https://sultangaliev.nomoredomains.work
+Backend http://sultangaliev.nomoredomains.work
