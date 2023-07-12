@@ -40,8 +40,11 @@ mongoose
 app.use(cors({
 //  origin: 'http://localhost:3000',
   origin:
-    //    'https://mesto-ru.nomoredomains.work',
-    'https://mesto-ru.nomoredomains.work',
+    //    'http://mesto-ru.nomoredomains.work',
+    [
+      'https://mesto-ru.nomoredomains.work',
+      /\.mesto-ru.nomoredomains.work$/,
+    ],
   credentials: true,
 }));
 
