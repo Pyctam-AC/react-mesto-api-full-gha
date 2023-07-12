@@ -44,6 +44,7 @@ app.use(cors({
     [
       'https://mesto-ru.nomoredomains.work',
       /\.mesto-ru.nomoredomains.work$/,
+      'http://mesto-ru.nomoredomains.work',
     ],
   credentials: true,
 }));
